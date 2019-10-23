@@ -111,7 +111,7 @@ func RunAll(runConf *RunConf) *Result {
 		}
 		return &result
 	}
-	r := &runner{concurrency: runtime.NumCPU()*4}
+	r := &runner{concurrency: runtime.NumCPU()}
 	r.start()
 	defer r.stop()
 
