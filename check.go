@@ -619,11 +619,7 @@ func newSuiteRunner(suite interface{}, runConf *RunConf) *suiteRunner {
 	return runner
 }
 
-<<<<<<< HEAD
-func (runner *suiteRunner) asyncRun(wg *sync.WaitGroup, notifyRunningSuitesCh chan struct{}) {
-=======
 func (runner *suiteRunner) asyncRun(r *runner, wg *sync.WaitGroup, notifyRunningSuitesCh chan struct{}) {
->>>>>>> save
 	if runner.tracker.result.RunError != nil || len(runner.tests) <= 0 {
 		return
 	}
@@ -641,11 +637,7 @@ func (runner *suiteRunner) asyncRun(r *runner, wg *sync.WaitGroup, notifyRunning
 
 	wg.Add(1)
 	c := runner.runFixture(runner.setUpSuite, "", nil)
-<<<<<<< HEAD
-	go func() {
-=======
 	go r.run(func() {
->>>>>>> save
 		defer wg.Done()
 		<-notifyRunningSuitesCh
 		runner.doRun(c)
@@ -656,11 +648,7 @@ func (runner *suiteRunner) asyncRun(r *runner, wg *sync.WaitGroup, notifyRunning
 		} else {
 			runner.tempDir.removeAll()
 		}
-<<<<<<< HEAD
-	}()
-=======
 	})
->>>>>>> save
 }
 
 func (runner *suiteRunner) doRun(c *C) {
