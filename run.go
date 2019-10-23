@@ -5,6 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"os"
+<<<<<<< HEAD
+=======
+	"runtime"
+>>>>>>> save
 	"sync"
 	"testing"
 	"time"
@@ -110,12 +114,22 @@ func RunAll(runConf *RunConf) *Result {
 		}
 		return &result
 	}
+<<<<<<< HEAD
+=======
+	r := &runner{concurrency: runtime.NumCPU()*4}
+	r.start()
+	defer r.stop()
+>>>>>>> save
 
 	wg := sync.WaitGroup{}
 	notifyRunningSuitesCh := make(chan struct{})
 	suiteRunners := make([]*suiteRunner, 0, len(allParallelSuites))
 	for _, suite := range allParallelSuites {
+<<<<<<< HEAD
 		suiteRunners = append(suiteRunners, parallelRun(suite, runConf, &wg, notifyRunningSuitesCh))
+=======
+		suiteRunners = append(suiteRunners, parallelRun(suite, runConf, r, &wg, notifyRunningSuitesCh))
+>>>>>>> save
 	}
 	close(notifyRunningSuitesCh)
 	wg.Wait()
@@ -130,9 +144,15 @@ func RunAll(runConf *RunConf) *Result {
 	return &result
 }
 
+<<<<<<< HEAD
 func parallelRun(suite interface{}, runConf *RunConf, wg *sync.WaitGroup, notifyRunningSuitesCh chan struct{}) *suiteRunner {
 	runner := newSuiteRunner(suite, runConf)
 	runner.asyncRun(wg, notifyRunningSuitesCh)
+=======
+func parallelRun(suite interface{}, runConf *RunConf, r *runner, wg *sync.WaitGroup, notifyRunningSuitesCh chan struct{}) *suiteRunner {
+	runner := newSuiteRunner(suite, runConf)
+	runner.asyncRun(r, wg, notifyRunningSuitesCh)
+>>>>>>> save
 	return runner
 }
 
